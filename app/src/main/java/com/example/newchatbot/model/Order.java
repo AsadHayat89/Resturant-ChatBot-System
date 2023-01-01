@@ -7,6 +7,7 @@ public class Order {
     String Quantity;
     String size;
     String image;
+    String feedback;
 
     public String getImage() {
         return image;
@@ -136,10 +137,20 @@ public class Order {
         this.status = status;
     }
 
-    public Order(String foodName, String quantity, String size, String useremail, String resturantemail, String devliberyTime, String status, String price, String totalPrice, String deliveryCharges, String orderID, String rating, String address, String extra) {
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public Order(String foodName, String quantity, String size, String image, String feedback, String useremail, String resturantemail, String devliberyTime, String status, String price, String totalPrice, String deliveryCharges, String orderID, String rating, String riderId, String address, String extra) {
         FoodName = foodName;
         Quantity = quantity;
         this.size = size;
+        this.image = image;
+        this.feedback = feedback;
         Useremail = useremail;
         Resturantemail = resturantemail;
         this.devliberyTime = devliberyTime;
@@ -149,6 +160,7 @@ public class Order {
         this.deliveryCharges = deliveryCharges;
         this.orderID = orderID;
         this.rating = rating;
+        RiderId = riderId;
         this.address = address;
         this.extra = extra;
     }

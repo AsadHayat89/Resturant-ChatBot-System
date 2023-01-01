@@ -127,13 +127,13 @@ public class payment extends AppCompatActivity {
                     Amount.setError("Amount should'nt be Null");
                 }
                 else{
-                    if(amon.equals(d.getPrice())){
+                    if(amon.equals(d.getTotalPrice())){
                         Task<Void> reference = FirebaseDatabase.getInstance().getReference("order").child(ORderID).child("status").setValue("1");
 
                         bottomSheetDialog.show();
                     }
                     else{
-                        Amount.setError("Amount Should be Equal to "+d.getPrice());
+                        Amount.setError("Amount Should be Equal to "+d.getTotalPrice());
                     }
 
                 }

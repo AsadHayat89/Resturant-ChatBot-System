@@ -51,6 +51,7 @@ public class RecyclerConfirmOrder extends RecyclerView.Adapter<RecyclerConfirmOr
         holder.Date.setText(item.getFoodName());
         holder.time.setText(String.valueOf(item.getTotalPrice()));
         Picasso.get().load(item.getImage()).into(holder.Total);
+        holder.feedback.setText(item.getFeedback());
         if(item.getStatus().equals("0")){
             holder.Number.setText(String.valueOf("Pending"));
             holder.ButtonLayout.setVisibility(View.VISIBLE);
@@ -104,7 +105,7 @@ public class RecyclerConfirmOrder extends RecyclerView.Adapter<RecyclerConfirmOr
     }
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView Number,time,Date;
+        public TextView Number,time,Date,feedback;
         public ImageView Total;
         public Button addData;
         public Button del,prev;
@@ -112,6 +113,7 @@ public class RecyclerConfirmOrder extends RecyclerView.Adapter<RecyclerConfirmOr
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            feedback=itemView.findViewById(R.id.tvFeedback);
             Number = itemView.findViewById(R.id.tvNumber);
             time = itemView.findViewById(R.id.tvtime);
             Date=itemView.findViewById(R.id.tvDate);

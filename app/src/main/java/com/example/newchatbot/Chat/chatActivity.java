@@ -97,7 +97,7 @@ int setprice;
 
         progressDialog=new ProgressDialog(this);
         Questions.add("How are you?");
-        Questions.add("What size you want to order \nfor(pizza :s, m,l, xl)\nfor(burger :s, m, l)\nfor(karahi:half, full, 1kg, 2kg...)");
+        Questions.add("What size you want to order \n (small/Mediam/large)");
         Questions.add("What quantity do you want to order");
         Questions.add("what thing do you want to add or neglect.");
         Questions.add("Are you sure to order these (Yes/No)");
@@ -154,7 +154,88 @@ int setprice;
                     etMessage.requestFocus();
                     return;
                 } else {
-                    if(userreponce==6){
+
+                    if(userreponce==2){
+
+                        //Toast.makeText(chatActivity.this, "data here", Toast.LENGTH_SHORT).show();
+                        if(msg.toLowerCase().equals("1".toLowerCase())||msg.toLowerCase().equals("2".toLowerCase())||msg.toLowerCase().equals("3".toLowerCase())||msg.toLowerCase().equals("4".toLowerCase())||msg.toLowerCase().equals("5".toLowerCase())||msg.toLowerCase().equals("6".toLowerCase())||msg.toLowerCase().equals("7".toLowerCase())||msg.toLowerCase().equals("8".toLowerCase())||msg.toLowerCase().equals("9".toLowerCase())){
+                            ChatMessage chatMessage = new ChatMessage(true,msg);
+                            adapter.add(chatMessage);
+                            etMessage.setText("");
+                            listView.setSelection(adapter.getCount() - 1);
+
+                            userreponce=userreponce+1;
+                            userREponce.add(msg);
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Do something after 100ms
+                                    sendBotMessage();
+                                }
+                            }, 1000);
+                        }
+                        else{
+                            ChatMessage chatMessage = new ChatMessage(true,msg);
+                            adapter.add(chatMessage);
+                            etMessage.setText("");
+                            ChatMessage chatMessage2 = new ChatMessage( false,"Quantity is not valid. Order Failed");
+                            //chatref.child(Common.currentUser.getPhone()).push().setValue("bot: "+message);
+                            adapter.add(chatMessage2);
+
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Do something after 100ms
+                                    Intent i=new Intent(chatActivity.this, UserDashboard.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(i);
+                                }
+                            }, 2000);
+
+                        }
+                    }
+                    else if(userreponce==1){
+                        if(msg.toLowerCase().equals("small".toLowerCase())||msg.toLowerCase().equals("mediam".toLowerCase())||msg.toLowerCase().equals("large".toLowerCase())){
+                            ChatMessage chatMessage = new ChatMessage(true,msg);
+                            adapter.add(chatMessage);
+                            etMessage.setText("");
+                            listView.setSelection(adapter.getCount() - 1);
+
+                            userreponce=userreponce+1;
+                            userREponce.add(msg);
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Do something after 100ms
+                                    sendBotMessage();
+                                }
+                            }, 1000);
+                        }
+                        else{
+                            ChatMessage chatMessage = new ChatMessage(true,msg);
+                            adapter.add(chatMessage);
+                            etMessage.setText("");
+                            ChatMessage chatMessage2 = new ChatMessage( false,"Size is not valid. Order Failed");
+                            //chatref.child(Common.currentUser.getPhone()).push().setValue("bot: "+message);
+                            adapter.add(chatMessage2);
+
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Do something after 100ms
+                                    Intent i=new Intent(chatActivity.this, UserDashboard.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(i);
+                                }
+                            }, 2000);
+
+                        }
+                    }
+                    else if(userreponce==6){
 
                         if(!msg.toLowerCase().equals("attock".toLowerCase())){
                             //Toast.makeText(chatActivity.this,"data here",Toast.LENGTH_LONG).show();
@@ -183,6 +264,38 @@ int setprice;
                                 }
                             }, 1000);
 
+                        }
+                    }
+                    else if(userreponce==5){
+
+ //                       Toast.makeText(chatActivity.this, "check data here", Toast.LENGTH_SHORT).show();
+                        if(msg.toLowerCase().equals("bank".toLowerCase())||msg.toLowerCase().equals("cash".toLowerCase())){
+                            //Toast.makeText(chatActivity.this,"data here2",Toast.LENGTH_LONG).show();
+                            ChatMessage chatMessage = new ChatMessage(true,msg);
+                            adapter.add(chatMessage);
+                            etMessage.setText("");
+                            listView.setSelection(adapter.getCount() - 1);
+
+                            userreponce=userreponce+1;
+                            userREponce.add(msg);
+                            final Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //Do something after 100ms
+                                    sendBotMessage();
+                                }
+                            }, 1000);
+
+                        }
+                        else{
+                            //Toast.makeText(chatActivity.this,"data here",Toast.LENGTH_LONG).show();
+                            ChatMessage chatMessage = new ChatMessage(true,msg);
+                            adapter.add(chatMessage);
+                            etMessage.setText("");
+                            ChatMessage chatMessage2 = new ChatMessage( false,"Only Cash/Bank are allowed");
+                            //chatref.child(Common.currentUser.getPhone()).push().setValue("bot: "+message);
+                            adapter.add(chatMessage2);
                         }
                     }
                     else{
@@ -248,7 +361,7 @@ int setprice;
         }
         else if(userreponce==5){
             // Toast.makeText(chatActivity.this, "data2", Toast.LENGTH_SHORT).show();
-            if(userREponce.get(4).equals("no")||userREponce.get(4).equals("No")||userREponce.get(4).equals("NO")){
+            if(!userREponce.get(4).toLowerCase().equals("yes")){
                 ChatMessage chatMessage = new ChatMessage( false,Questions.get(6));
                 //chatref.child(Common.currentUser.getPhone()).push().setValue("bot: "+message);
                 progressDialog.setTitle("Order fail");
@@ -317,6 +430,8 @@ int setprice;
         newPost.child("TotalPrice").setValue(String.valueOf(totalPrice));
         newPost.child("deliveryCharges").setValue("100");
         newPost.child("rating").setValue("0");
+        newPost.child("Feedback").setValue("");
+
         newPost.child("payment").setValue(userREponce.get(5));
         newPost.child("extra").setValue(userREponce.get(3));
         newPost.child("address").setValue(userREponce.get(6));

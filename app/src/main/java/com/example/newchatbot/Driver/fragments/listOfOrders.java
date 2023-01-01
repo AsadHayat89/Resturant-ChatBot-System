@@ -67,23 +67,31 @@ public class listOfOrders extends Fragment {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for(DataSnapshot datas: dataSnapshot.getChildren()){
                                     Log.d("datachecking","String.valueOf(itemsList.size())");
-                                    if(datas.child("status").getValue().toString().equals("0") && datas.child("driverID").getValue().toString().equals("0")){
-                                        Order d=new Order();
-                                        d.setFoodName(datas.child("FoodName").getValue().toString());
-                                        d.setQuantity(datas.child("Quantity").getValue().toString());
-                                        d.setSize(datas.child("size").getValue().toString());
-                                        d.setUseremail(datas.child("Useremail").getValue().toString());
-                                        d.setResturantemail(datas.child("Resturantemail").getValue().toString());
-                                        d.setStatus(datas.child("status").getValue().toString());
-                                        d.setDevliberyTime(datas.child("delivery Time").getValue().toString());
-                                        d.setPrice(datas.child("price").getValue().toString());
-                                        d.setTotalPrice(datas.child("TotalPrice").getValue().toString());
-                                        d.setDeliveryCharges(datas.child("deliveryCharges").getValue().toString());
-                                        d.setOrderID(datas.getKey().toString());
-                                        d.setAddress(datas.child("address").getValue().toString());
-                                        d.setImage(datas.child("FoodImage").getValue().toString());
-                                        itemsList.add(d);
+                                    String rat=datas.child("payment").getValue().toString().toLowerCase();
+
+                                    String bank="bank";
+                                    Boolean res=rat.contains(bank.toLowerCase());
+                                    Log.d("dataname",rat);
+                                    if(!res){
+                                        if(datas.child("status").getValue().toString().equals("0") && datas.child("driverID").getValue().toString().equals("0")){
+                                            Order d=new Order();
+                                            d.setFoodName(datas.child("FoodName").getValue().toString());
+                                            d.setQuantity(datas.child("Quantity").getValue().toString());
+                                            d.setSize(datas.child("size").getValue().toString());
+                                            d.setUseremail(datas.child("Useremail").getValue().toString());
+                                            d.setResturantemail(datas.child("Resturantemail").getValue().toString());
+                                            d.setStatus(datas.child("status").getValue().toString());
+                                            d.setDevliberyTime(datas.child("delivery Time").getValue().toString());
+                                            d.setPrice(datas.child("price").getValue().toString());
+                                            d.setTotalPrice(datas.child("TotalPrice").getValue().toString());
+                                            d.setDeliveryCharges(datas.child("deliveryCharges").getValue().toString());
+                                            d.setOrderID(datas.getKey().toString());
+                                            d.setAddress(datas.child("address").getValue().toString());
+                                            d.setImage(datas.child("FoodImage").getValue().toString());
+                                            itemsList.add(d);
+                                        }
                                     }
+
                                     //Log.d("datahere","here");
                                     //Toast.makeText(checkDrivers.this, familyname, Toast.LENGTH_SHORT).show();
                                 }

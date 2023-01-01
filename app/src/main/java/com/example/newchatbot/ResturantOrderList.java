@@ -59,6 +59,7 @@ public class ResturantOrderList extends AppCompatActivity {
                     d.setImage(datas.child("FoodImage").getValue().toString());
                     d.setRating(datas.child("rating").getValue().toString());
                     d.setAddress(datas.child("address").getValue().toString());
+                    d.setFeedback(datas.child("Feedback").getValue().toString());
                     ID=datas.getKey().toString();
                     itemsList.add(d);
                     //Log.d("datahere","here");

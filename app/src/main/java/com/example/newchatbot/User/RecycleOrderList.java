@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -58,6 +59,7 @@ public class RecycleOrderList extends RecyclerView.Adapter<RecycleOrderList.MyVi
         holder.Date.setText(item.getFoodName());
         holder.time.setText(String.valueOf(item.getDevliberyTime()));
         holder.chrges.setText(item.getTotalPrice());
+
         FirebaseDatabase.getInstance().getReference()
                 .child("driver").child(item.getRiderId()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -106,6 +108,7 @@ public class RecycleOrderList extends RecyclerView.Adapter<RecycleOrderList.MyVi
                 final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context,R.style.SheetDialog);
                 bottomSheetDialog.setContentView(R.layout.bottom_sheet_data);
                 Button btn=bottomSheetDialog.findViewById(R.id.searchCancel);
+                EditText etdata=bottomSheetDialog.findViewById(R.id.et_message);
                 RatingBar rat=bottomSheetDialog.findViewById(R.id.ratingBar);
                 rat.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -123,6 +126,7 @@ public class RecycleOrderList extends RecyclerView.Adapter<RecycleOrderList.MyVi
                         Log.d("reached","reached here");
                         Float ratingvalue=rat.getRating();
                         Task<Void> reference1 = FirebaseDatabase.getInstance().getReference("order").child(dataID).child("rating").setValue(String.valueOf(ratingvalue));
+                        Task<Void> reference2 = FirebaseDatabase.getInstance().getReference("order").child(dataID).child("Feedback").setValue(String.valueOf(etdata.getText().toString()));
                         itemsList.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position,itemsList.size());
